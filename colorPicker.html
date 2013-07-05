@@ -5,22 +5,23 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 		<style>
 		.colorbox {
-			float:left;
-			width: 10px;
-			height: 10px;
-			margin:1px;
-			border: 1px solid #AEAEAE;
+		float:left;
+		width: 10px;
+		height: 10px;
+		margin:1px;
+		border: 1px solid #AEAEAE;
 		}
 		#update {
-		    box-shadow: 0 0 500px #AEAEAE;
+		box-shadow: 0 0 500px #AEAEAE;
 		    float: left;
 		    font-size: 2em;
 		    height: auto;
 		    margin: 1% 42% auto;
-		    width: auto;
+		    width: 150px;
+		    background-color: transparent;
 		}
 		</style>
-</head>
+	</head>
 	<body style="margin: 0 auto;  margin-top: 1%;float:left;width: 100%;height: 100%">
 	
 		<canvas id="mycanvas" style="margin-left: 25%;width:50%; height: 50%;float:left;box-shadow:0 0 500px #AEAEAE">Your browser does not support HTML5</canvas>
@@ -51,7 +52,7 @@
 		}
 		
 		</script>
-		<div id="update">#AEAEAE</div>
+		<input type="text" id="update" value="" readonly="readonly"/>
 	<div id="colorcanvas" style="margin:1% 1% auto;width:98%; height: auto;float:left;box-shadow:0 0 500px #AEAEAE"></div>
 	<script>
 
@@ -73,12 +74,20 @@
 	$(document).ready(
 	function() {
 	
+		$("#update").click(function(){
+		
+		$(this).select();
+		
+			
+		});
+	
 		$(".colorbox").click(function() {
 		x=-6;
 				oldx=0;oldy=80;
 		contxt.beginPath();
 				contxt.strokeStyle= $(this).css("background-color");
-				$("#update").html(contxt.strokeStyle);
+				$("#update").val(contxt.strokeStyle);
+				$("#update").css("background-color",contxt.strokeStyle);
 		contxt.closePath();
 		var id =	setInterval(function() {
 				
