@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>Color Picker</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<style>
+		.colorbox {
+		float:left;
+		width: 10px;
+		height: 10px;
+		margin:1px;
+		border: 1px solid #AEAEAE;
+		}
+		#update {
+		box-shadow: 0 0 500px #AEAEAE;
+    float: left;
+    font-size: 2em;
+    height: auto;
+    margin: 10% 42% auto;
+    width: auto;
+		}
+		</style>
+	</head>
+	<body style="margin: 0 auto;  margin-top: 5%;float:left;width: 100%;height: 100%">
+	
+		<canvas id="mycanvas" style="margin-left: 25%;width:50%; height: 50%;float:left;box-shadow:0 0 500px #AEAEAE">Your browser does not support HTML5</canvas>
+		<script>
+		var c = document.getElementById("mycanvas");
+			var contxt = c.getContext("2d");
+		var oldx=0, oldy=80, yOffset=80;var x=-6;
+		contxt.strokeStyle= "#000000";
+		function drawWave(waveFn) {
+			contxt.beginPath();
+			if(x > 360) {
+			//	x = -6;
+				oldx=0;
+				oldy=80;
+			}
+			if(waveFn == "sin") 
+				y = 80 - Math.ceil(Math.sin(x)*40);
+			else if(waveFn == "cos") 
+				y = 80 - Math.ceil(Math.cos(x)*40);
+			else if(waveFn == "tan") 
+				y = 80 - Math.ceil(Math.tan(x)*40);
+			
+			contxt.moveTo(oldx,oldy);
+			contxt.lineTo(x,y*y);
+			contxt.stroke();
+			oldx=x;
+			oldy=y;
+			contxt.closePath();
+		}
+		
+		//createGraph();
+		
+		id = setInterval(function(){ 
+			drawWave("sin");x+=3; 
+			if(x>360) {
+			x=-6;
+				clearInterval(id);
+			}
+			},10);
+		
+		</script>
+		<div id="update">#AEAEAE</div>
+	<div id="colorcanvas" style="margin:10% 1% auto;width:98%; height: auto;float:left;box-shadow:0 0 500px #AEAEAE"></div>
+	<script>
+
+	var string	= "";
+	for(var r=0; r<255; r+=20) {
+	
+		for(var g=0; g<255;g+=20) {
+		
+			for(var b=0; b<255; b+=20) {
+			string += '<div class="colorbox" style="background-color:'+'rgb('+r+','+g+','+b+')'+'"></div>'
+				
+			
+			}
+		
+			
+		}
+	}
+		$("#colorcanvas").append(string);
+	$(document).ready(
+	function() {
+	
+		$(".colorbox").click(function() {
+		contxt.beginPath();
+				contxt.strokeStyle= $(this).css("background-color");
+		contxt.closePath();
+		id = setInterval(function(){ 
+			drawWave("sin");x+=3; 
+			if(x>360) {
+			x=-6;
+				clearInterval(id);
+			}
+			},10);
+		}
+		);
+	
+	}
+	
+	);
+	</script>
+	</body>
+</html>
